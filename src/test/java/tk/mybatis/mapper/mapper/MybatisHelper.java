@@ -49,7 +49,8 @@ import java.sql.Connection;
 public class MybatisHelper {
     private static SqlSessionFactory sqlSessionFactory;
 
-    static {
+
+    private static void loadConfig() {
         try {
             //创建SqlSessionFactory
             Reader reader = Resources.getResourceAsReader("mybatis-java.xml");
@@ -115,11 +116,28 @@ public class MybatisHelper {
         }
     }
 
+    public static SqlSession getSqlSession(boolean loadConfig) {
+        if (loadConfig) {
+            loadConfig();
+        } else {
+            Reader reader = null;
+            try {
+                reader = Resources.getResourceAsReader("mybatis-java.xml");
+            } catch (IOException e) {
+
+            }
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        }
+        return sqlSessionFactory.openSession();
+    }
+
     /**
      * 获取Session
+     *
      * @return
      */
-    public static SqlSession getSqlSession(){
+    public static SqlSession getSqlSession() {
+        loadConfig();
         return sqlSessionFactory.openSession();
     }
 }
