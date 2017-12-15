@@ -95,7 +95,7 @@ public class MybatisHelper {
                 mapperHelper.registerMapper(MySqlMapper.class);
                 mapperHelper.registerMapper(SqlServerMapper.class);
                 mapperHelper.registerMapper(IdsMapper.class);
-                //配置完成后，执行下面的操作
+                //配置完成后，执行下面的操作,在这里会替换掉所有注册到mapper中所有方法的sqlSource
                 mapperHelper.processConfiguration(session.getConfiguration());
                 //OK - mapperHelper的任务已经完成，可以不管了
 

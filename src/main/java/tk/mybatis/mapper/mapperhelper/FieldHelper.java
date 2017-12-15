@@ -172,11 +172,10 @@ public class FieldHelper {
             }
             Field[] fields = entityClass.getDeclaredFields();
             int index = 0;
-            for (int i = 0; i < fields.length; i++) {
-                Field field = fields[i];
+            for (Field field : fields) {
                 //排除静态字段，解决bug#2
                 if (!Modifier.isStatic(field.getModifiers())) {
-                    if (level.intValue() != 0) {
+                    if (level != 0) {
                         //将父类的字段放在前面
                         fieldList.add(index, new EntityField(field, null));
                         index++;
@@ -204,7 +203,7 @@ public class FieldHelper {
          */
         public List<EntityField> getProperties(Class<?> entityClass) {
             List<EntityField> entityFields = new ArrayList<EntityField>();
-            BeanInfo beanInfo = null;
+            BeanInfo beanInfo;
             try {
                 beanInfo = Introspector.getBeanInfo(entityClass);
             } catch (IntrospectionException e) {
@@ -298,7 +297,7 @@ public class FieldHelper {
                     } else {
                         entityField.setJavaType(field.getType());
                     }
-                    if (level.intValue() != 0) {
+                    if (level != 0) {
                         //将父类的字段放在前面
                         fieldList.add(index, entityField);
                         index++;

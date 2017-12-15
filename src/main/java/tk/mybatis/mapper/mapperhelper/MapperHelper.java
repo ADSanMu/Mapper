@@ -128,7 +128,7 @@ public class MapperHelper {
         if (templateClass == null || !MapperTemplate.class.isAssignableFrom(templateClass)) {
             templateClass = EmptyProvider.class;
         }
-        MapperTemplate mapperTemplate = null;
+        MapperTemplate mapperTemplate;
         try {
             mapperTemplate = (MapperTemplate) templateClass.getConstructor(Class.class, MapperHelper.class).newInstance(mapperClass, this);
         } catch (Exception e) {
