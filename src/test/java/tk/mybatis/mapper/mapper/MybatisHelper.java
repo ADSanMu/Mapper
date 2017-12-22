@@ -26,6 +26,9 @@ package tk.mybatis.mapper.mapper;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -55,6 +58,7 @@ public class MybatisHelper {
             //创建SqlSessionFactory
             Reader reader = Resources.getResourceAsReader("mybatis-java.xml");
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+            Configuration configuration = sqlSessionFactory.getConfiguration();
             reader.close();
             //创建数据库
             SqlSession session = null;

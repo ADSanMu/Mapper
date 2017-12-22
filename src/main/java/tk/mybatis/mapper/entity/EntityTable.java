@@ -87,7 +87,7 @@ public class EntityTable {
             String column = entityColumn.getColumn();
             //去掉可能存在的分隔符
             Matcher matcher = DELIMITER.matcher(column);
-            if(matcher.find()){
+            if (matcher.find()) {
                 column = matcher.group(1);
             }
             ResultMapping.Builder builder = new ResultMapping.Builder(configuration, entityColumn.getProperty(), column, entityColumn.getJavaType());
@@ -96,7 +96,7 @@ public class EntityTable {
             }
             if (entityColumn.getTypeHandler() != null) {
                 try {
-                    builder.typeHandler(getInstance(entityColumn.getJavaType(),entityColumn.getTypeHandler()));
+                    builder.typeHandler(getInstance(entityColumn.getJavaType(), entityColumn.getTypeHandler()));
                 } catch (Exception e) {
                     throw new MapperException(e);
                 }
@@ -108,8 +108,9 @@ public class EntityTable {
             builder.flags(flags);
             resultMappings.add(builder.build());
         }
-        ResultMap.Builder builder = new ResultMap.Builder(configuration, "BaseMapperResultMap", this.entityClass, resultMappings, true);
+        ResultMap.Builder builder = new ResultMap.Builder(configuration, entityClass.getCanonicalName() + "ResultMap", this.entityClass, resultMappings, true);
         this.resultMap = builder.build();
+        configuration.addResultMap(resultMap);
         return this.resultMap;
     }
 
@@ -125,6 +126,7 @@ public class EntityTable {
 
     /**
      * 实例化TypeHandler
+     *
      * @param javaTypeClass
      * @param typeHandlerClass
      * @return
@@ -132,22 +134,22 @@ public class EntityTable {
     @SuppressWarnings("unchecked")
     public <T> TypeHandler<T> getInstance(Class<?> javaTypeClass, Class<?> typeHandlerClass) {
         if (javaTypeClass != null) {
-          try {
-            Constructor<?> c = typeHandlerClass.getConstructor(Class.class);
-            return (TypeHandler<T>) c.newInstance(javaTypeClass);
-          } catch (NoSuchMethodException ignored) {
-            // ignored
-          } catch (Exception e) {
-            throw new TypeException("Failed invoking constructor for handler " + typeHandlerClass, e);
-          }
+            try {
+                Constructor<?> c = typeHandlerClass.getConstructor(Class.class);
+                return (TypeHandler<T>) c.newInstance(javaTypeClass);
+            } catch (NoSuchMethodException ignored) {
+                // ignored
+            } catch (Exception e) {
+                throw new TypeException("Failed invoking constructor for handler " + typeHandlerClass, e);
+            }
         }
         try {
-          Constructor<?> c = typeHandlerClass.getConstructor();
-          return (TypeHandler<T>) c.newInstance();
+            Constructor<?> c = typeHandlerClass.getConstructor();
+            return (TypeHandler<T>) c.newInstance();
         } catch (Exception e) {
-          throw new TypeException("Unable to find a usable constructor for " + typeHandlerClass, e);
+            throw new TypeException("Unable to find a usable constructor for " + typeHandlerClass, e);
         }
-      }
+    }
 
     public String getBaseSelect() {
         return baseSelect;
@@ -192,6 +194,10 @@ public class EntityTable {
         return new String[]{};
     }
 
+    public void setKeyColumns(List<String> keyColumns) {
+        this.keyColumns = keyColumns;
+    }
+
     public void setKeyColumns(String keyColumn) {
         if (this.keyColumns == null) {
             this.keyColumns = new ArrayList<String>();
@@ -206,6 +212,10 @@ public class EntityTable {
             return keyProperties.toArray(new String[]{});
         }
         return new String[]{};
+    }
+
+    public void setKeyProperties(List<String> keyProperties) {
+        this.keyProperties = keyProperties;
     }
 
     public void setKeyProperties(String keyProperty) {
@@ -253,14 +263,6 @@ public class EntityTable {
 
     public void setSchema(String schema) {
         this.schema = schema;
-    }
-
-    public void setKeyColumns(List<String> keyColumns) {
-        this.keyColumns = keyColumns;
-    }
-
-    public void setKeyProperties(List<String> keyProperties) {
-        this.keyProperties = keyProperties;
     }
 
     public void setTable(Table table) {

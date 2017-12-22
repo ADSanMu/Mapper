@@ -60,20 +60,20 @@
     </environments>
 
     <mappers>
-        <mapper resource="CachedCountryMapper.xml"/>
-        <mapper resource="UserInfoMapper.xml"/>
-        <mapper class="tk.mybatis.mapper.mapper.CountryMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.Country2Mapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.CountryTMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.CountryUMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.CountryJDBCMapper"/>
+        <!--<mapper resource="CachedCountryMapper.xml"/>-->
+        <!--<mapper resource="UserInfoMapper.xml"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.CountryMapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.Country2Mapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.CountryTMapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.CountryUMapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.CountryJDBCMapper"/>-->
         <mapper class="tk.mybatis.mapper.mapper.CountryIMapper"/>
         <mapper class="tk.mybatis.mapper.mapper.UserInfoMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.UserInfoAbleMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.UserInfoMapMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.UserLoginMapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.UserLogin2Mapper"/>
-        <mapper class="tk.mybatis.mapper.mapper.JDBCMapper"/>
+        <!--<mapper class="tk.mybatis.mapper.mapper.UserInfoAbleMapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.UserInfoMapMapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.UserLoginMapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.UserLogin2Mapper"/>-->
+        <!--<mapper class="tk.mybatis.mapper.mapper.JDBCMapper"/>-->
 
     </mappers>
 
